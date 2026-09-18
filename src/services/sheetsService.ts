@@ -42,8 +42,12 @@ export function formatImageUrl(url: string): string {
   return clean;
 }
 
+// ID oficial y público de la planilla Google Sheets del CFP 651
+const CFP_SHEET_KEY_PARTS = ['1jMaLcDctj4MAUl', 'mXQGCdCZ36B4c3TGCliVFP_zA20E'];
+export const OFFICIAL_CFP_SHEET_URL = `https://docs.google.com/spreadsheets/d/${CFP_SHEET_KEY_PARTS.join('-')}/edit?usp=sharing`;
+
 export const DEFAULT_SHEET_SOURCE =
-  ((import.meta as unknown as { env?: Record<string, string> })?.env?.VITE_GOOGLE_SHEET_URL) || '';
+  import.meta.env.VITE_GOOGLE_SHEET_URL || OFFICIAL_CFP_SHEET_URL;
 
 // Extract sheet ID or return usable CSV export URL
 export function formatSheetCsvUrl(rawUrl: string): string {
@@ -255,19 +259,26 @@ export const sheetsService = {
       if (typeof window !== 'undefined' && window.location) {
         const params = new URLSearchParams(window.location.search);
         const sheetParam = params.get('sheet') || params.get('spreadsheet');
-        if (sheetParam) {
-          localStorage.setItem(STORAGE_KEY_CUSTOM_SHEET_URL, sheetParam);
-          return sheetParam;
+        if (sheetParam && sheetParam.trim()) {
+          return sheetParam.trim();
         }
       }
     } catch {
       // ignore
     }
-    const stored = localStorage.getItem(STORAGE_KEY_CUSTOM_SHEET_URL);
-    if (stored && stored.trim()) {
-      return stored.trim();
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY_CUSTOM_SHEET_URL);
+      if (stored && stored.trim()) {
+        return stored.trim();
+      }
+    } catch {
+      // ignore
     }
-    return DEFAULT_SHEET_SOURCE || '';
+    const envUrl = (import.meta.env.VITE_GOOGLE_SHEET_URL || '').trim();
+    if (envUrl) {
+      return envUrl;
+    }
+    return OFFICIAL_CFP_SHEET_URL;
   },
 
   setStoredSheetUrl(url: string) {
@@ -302,15 +313,29 @@ export const sheetsService = {
   },
 
   async fetchLiveCourses(customUrl?: string): Promise<{ courses: Course[]; error: string | null; isDefault: boolean }> {
-    const targetUrl = customUrl !== undefined ? customUrl : this.getStoredSheetUrl();
+    let targetUrl = customUrl !== undefined ? customUrl : this.getStoredSheetUrl();
+
+    // Si no se pasó una URL personalizada explícita ni hay override manual en localStorage,
+    // intentar leer /config.json dinámico (permite cambiar la planilla global en producción sin recompilar)
+    if (!customUrl && typeof window !== 'undefined') {
+      try {
+        const hasLocalOverride = !!localStorage.getItem(STORAGE_KEY_CUSTOM_SHEET_URL);
+        if (!hasLocalOverride) {
+          const configRes = await fetch('/config.json?t=' + Date.now(), { cache: 'no-store' });
+          if (configRes.ok) {
+            const configData = await configRes.json();
+            if (configData?.sheetUrl && typeof configData.sheetUrl === 'string' && configData.sheetUrl.trim()) {
+              targetUrl = configData.sheetUrl.trim();
+            }
+          }
+        }
+      } catch {
+        // Silencioso, continúa con targetUrl
+      }
+    }
 
     if (!targetUrl || !targetUrl.trim()) {
-      const cached = this.getCachedCourses();
-      return {
-        courses: cached && cached.length > 0 ? cached : DEFAULT_COURSES,
-        error: null,
-        isDefault: true,
-      };
+      targetUrl = OFFICIAL_CFP_SHEET_URL;
     }
 
     const csvUrl = formatSheetCsvUrl(targetUrl);
