@@ -4,10 +4,7 @@ import path from 'path';
 import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
-  const sheetUrl =
-    process.env.VITE_GOOGLE_SHEET_URL ||
-    'https://docs.google.com/spreadsheets/d/1jMaLcDctj4MAUl-mXQGCdCZ36B4c3TGCliVFP_zA20E/edit?usp=sharing';
-
+  const sheetUrl = process.env.VITE_GOOGLE_SHEET_URL || '';
   const adminPassword = process.env.VITE_ADMIN_PASSWORD || 'admin';
 
   return {

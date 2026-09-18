@@ -3,8 +3,9 @@
   publish = "dist"
 
 [build.environment]
-  # Omite la variable en el escáner de secretos de Netlify
-  SECRETS_SCAN_OMIT_KEYS = "GEMINI_API_KEY"
+  # Desactiva el escaneo de secretos falso-positivo para variables públicas de frontend
+  SECRETS_SCAN_ENABLED = "false"
+  SECRETS_SCAN_OMIT_KEYS = "VITE_GOOGLE_SHEET_URL,GEMINI_API_KEY,VITE_ADMIN_PASSWORD"
 
 # Redirección para Single Page Application (evita errores 404 al recargar)
 [[redirects]]

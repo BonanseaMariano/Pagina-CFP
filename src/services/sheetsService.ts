@@ -43,8 +43,7 @@ export function formatImageUrl(url: string): string {
 }
 
 export const DEFAULT_SHEET_SOURCE =
-  ((import.meta as unknown as { env?: Record<string, string> })?.env?.VITE_GOOGLE_SHEET_URL) ||
-  'https://docs.google.com/spreadsheets/d/1jMaLcDctj4MAUl-mXQGCdCZ36B4c3TGCliVFP_zA20E/edit?usp=sharing';
+  ((import.meta as unknown as { env?: Record<string, string> })?.env?.VITE_GOOGLE_SHEET_URL) || '';
 
 // Extract sheet ID or return usable CSV export URL
 export function formatSheetCsvUrl(rawUrl: string): string {
