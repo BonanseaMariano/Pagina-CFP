@@ -1,0 +1,6 @@
+{
+  "name": "CFP N° 651 - Oferta Formativa Oficial",
+  "description": "Portal institucional y catálogo interactivo de cursos y talleres gratuitos del Centro de Formación Profesional N° 651 de Puerto Madryn, Chubut, sincronizado en vivo desde Google Sheets.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
