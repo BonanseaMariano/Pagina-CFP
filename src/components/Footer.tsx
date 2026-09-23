@@ -143,7 +143,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab, onOpenContact }) =>
         {/* Bottom copyright */}
         <div className="mt-10 border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#ADC7FC]/70">
           <p>© {new Date().getFullYear()} Centro de Formación Profesional Nº 651. Todos los derechos reservados.</p>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <span>Puerto Madryn, Chubut</span>
           </div>
         </div>

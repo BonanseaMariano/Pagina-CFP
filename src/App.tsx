@@ -93,7 +93,8 @@ export default function App() {
         path.includes('/gestion') ||
         hash === '#admin' ||
         hash === '#gestion' ||
-        search.includes('admin=true')
+        search.includes('admin=true') ||
+        search.includes('gestion=true')
       ) {
         setIsSheetConfigOpen(true);
       }
