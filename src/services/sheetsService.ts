@@ -42,12 +42,8 @@ export function formatImageUrl(url: string): string {
   return clean;
 }
 
-// ID oficial y público de la planilla Google Sheets del CFP 651
-const CFP_SHEET_KEY_PARTS = ['1jMaLcDctj4MAUl', 'mXQGCdCZ36B4c3TGCliVFP_zA20E'];
-export const OFFICIAL_CFP_SHEET_URL = `https://docs.google.com/spreadsheets/d/${CFP_SHEET_KEY_PARTS.join('-')}/edit?usp=sharing`;
-
-export const DEFAULT_SHEET_SOURCE =
-  import.meta.env.VITE_GOOGLE_SHEET_URL || OFFICIAL_CFP_SHEET_URL;
+// Source configurada por variable de entorno (si existe)
+export const DEFAULT_SHEET_SOURCE = (import.meta.env.VITE_GOOGLE_SHEET_URL || '').trim();
 
 // Extract sheet ID or return usable CSV export URL
 export function formatSheetCsvUrl(rawUrl: string): string {
@@ -278,7 +274,7 @@ export const sheetsService = {
     if (envUrl) {
       return envUrl;
     }
-    return OFFICIAL_CFP_SHEET_URL;
+    return '';
   },
 
   setStoredSheetUrl(url: string) {
@@ -289,13 +285,22 @@ export const sheetsService = {
     }
   },
 
+  resetToDefault() {
+    localStorage.removeItem(STORAGE_KEY_CUSTOM_SHEET_URL);
+    localStorage.removeItem(STORAGE_KEY_LAST_COURSES);
+    localStorage.removeItem(STORAGE_KEY_LAST_SYNC_TIME);
+  },
+
   getLastSyncTime(): string | null {
     return localStorage.getItem(STORAGE_KEY_LAST_SYNC_TIME);
   },
 
   getCachedCourses(): Course[] | null {
+    // Si no hay ninguna planilla configurada (ni en env ni en localStorage), no mostrar caché
+    if (!this.getStoredSheetUrl()) {
+      return null;
+    }
     try {
-      // Limpiar caché anterior si existía para no arrastrar cursos placeholder
       if (typeof localStorage !== 'undefined') {
         localStorage.removeItem('cfp651_cached_courses');
         const cached = localStorage.getItem(STORAGE_KEY_LAST_COURSES);
@@ -316,7 +321,7 @@ export const sheetsService = {
     let targetUrl = customUrl !== undefined ? customUrl : this.getStoredSheetUrl();
 
     // Si no se pasó una URL personalizada explícita ni hay override manual en localStorage,
-    // intentar leer /config.json dinámico (permite cambiar la planilla global en producción sin recompilar)
+    // intentar leer /config.json dinámico (si existiera configurado)
     if (!customUrl && typeof window !== 'undefined') {
       try {
         const hasLocalOverride = !!localStorage.getItem(STORAGE_KEY_CUSTOM_SHEET_URL);
@@ -334,8 +339,14 @@ export const sheetsService = {
       }
     }
 
+    // Si no hay ninguna URL configurada en variables de entorno, config.json ni panel de administración:
+    // Por defecto no se muestra ningún curso
     if (!targetUrl || !targetUrl.trim()) {
-      targetUrl = OFFICIAL_CFP_SHEET_URL;
+      return {
+        courses: [],
+        error: null,
+        isDefault: true,
+      };
     }
 
     const csvUrl = formatSheetCsvUrl(targetUrl);
@@ -384,11 +395,5 @@ export const sheetsService = {
         isDefault: false,
       };
     }
-  },
-
-  resetToDefault(): void {
-    localStorage.removeItem(STORAGE_KEY_CUSTOM_SHEET_URL);
-    localStorage.removeItem(STORAGE_KEY_LAST_COURSES);
-    localStorage.removeItem(STORAGE_KEY_LAST_SYNC_TIME);
   },
 };

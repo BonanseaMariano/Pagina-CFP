@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { sheetsService, OFFICIAL_CFP_SHEET_URL } from '../services/sheetsService';
+import { sheetsService } from '../services/sheetsService';
 import { X, RefreshCw, CheckCircle2, AlertTriangle, ExternalLink, KeyRound, Globe, Copy, Check, Lock } from 'lucide-react';
 
 interface SheetConfigModalProps {
@@ -109,7 +109,7 @@ export const SheetConfigModal: React.FC<SheetConfigModalProps> = ({
     setUrl(sheetsService.getStoredSheetUrl());
     setTestResult({
       success: true,
-      message: 'Se ha restablecido la planilla a la oficial del CFP 651.',
+      message: 'Se ha restablecido la configuración a la variable de entorno predeterminada.',
     });
     setIsSaving(true);
     try {
@@ -266,7 +266,7 @@ export const SheetConfigModal: React.FC<SheetConfigModalProps> = ({
                   <span>Alcance para todos los dispositivos y usuarios:</span>
                 </div>
                 <p className="text-[11px] leading-relaxed text-slate-600">
-                  Cualquier persona que visite la web desde cualquier teléfono o computadora cargará <strong>automáticamente la planilla oficial del CFP 651</strong>. Al editar cursos o agregar filas directamente en el documento de Google Sheets, los cambios se reflejan para todos los visitantes sin necesidad de tocar nada más.
+                  La oferta formativa se carga dinámicamente desde la variable de entorno <code className="font-mono text-[#0F2D59]">VITE_GOOGLE_SHEET_URL</code> (configurada en Netlify) o desde la URL que asignes en este panel. Si no hay ninguna planilla configurada, no se mostrará ningún curso a los visitantes.
                 </p>
                 <div className="flex flex-wrap gap-2 pt-1">
                   <button
@@ -307,7 +307,7 @@ export const SheetConfigModal: React.FC<SheetConfigModalProps> = ({
                   onClick={handleReset}
                   className="text-xs text-slate-500 hover:text-slate-800 underline underline-offset-2"
                 >
-                  Restablecer a planilla oficial predeterminada
+                  Restablecer a configuración predeterminada
                 </button>
 
                 <div className="flex items-center gap-2">

@@ -62,6 +62,8 @@ export default function App() {
           const fresh = result.courses.find((c) => c.id === prev.id || c.titulo === prev.titulo);
           return fresh || prev;
         });
+      } else {
+        setCourses([]);
       }
     } catch {
       // Fallo silencioso de conexión en background para no interrumpir al usuario
