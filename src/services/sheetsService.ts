@@ -212,7 +212,22 @@ export function convertRowsToCourses(rows: string[][]): Course[] {
       getCol(row, 'fotolaboratorio', 'foto_laboratorio', 'foto', 'imagen', 'img', 'foto_url', 'drive', 'drive_url');
     const foto = formatImageUrl(rawFoto);
 
-    const certificacion = getCol(row, 'certificacion', 'titulo_otorgado', 'certificado', 'titulo');
+    const rawCertificacion = getCol(
+      row,
+      'certificacion',
+      'certificaciones',
+      'certificado',
+      'certificados',
+      'titulo_otorgado',
+      'titulootorgado',
+      'titulo',
+      'titulos',
+      'titulacion'
+    );
+    const certificaciones = rawCertificacion
+      ? rawCertificacion.split(/[;|•\n]/).map((s) => s.trim()).filter(Boolean)
+      : [];
+    const certificacion = certificaciones.length > 0 ? certificaciones.join(' • ') : undefined;
 
     courses.push({
       id,
@@ -221,7 +236,8 @@ export function convertRowsToCourses(rows: string[][]): Course[] {
       gratuito: getCol(row, 'gratuito', 'arancel') || 'Gratuito y Público',
       estado,
       ciclo: getCol(row, 'ciclo', 'periodo', 'año') || `Ciclo ${new Date().getFullYear()}`,
-      certificacion: certificacion || undefined,
+      certificacion,
+      certificaciones: certificaciones.length > 0 ? certificaciones : undefined,
       fotoLaboratorio: foto,
       pieFoto:
         getCol(row, 'piefoto', 'pie_foto', 'epigrafe', 'lugar') ||

@@ -18,6 +18,7 @@ import {
   AlertCircle,
   Building,
   FileText,
+  Award,
 } from 'lucide-react';
 
 interface CourseModalProps {
@@ -94,6 +95,13 @@ export const CourseModal: React.FC<CourseModalProps> = ({ course, onClose, onOpe
 
   if (!course) return null;
 
+  const certs =
+    course.certificaciones && course.certificaciones.length > 0
+      ? course.certificaciones
+      : course.certificacion
+      ? course.certificacion.split(/[;|•\n]/).map((s) => s.trim()).filter(Boolean)
+      : [];
+
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
@@ -153,12 +161,24 @@ export const CourseModal: React.FC<CourseModalProps> = ({ course, onClose, onOpe
                 </span>
               </div>
 
-              {/* Official Chubut Ministry Seal Badge */}
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-[#EBF0F7] px-3 py-1 text-xs font-semibold text-[#0F2D59]">
-                <ShieldCheck className="h-3.5 w-3.5 text-[#0F2D59]" />
-                <span className="hidden sm:inline">{course.certificacion}</span>
-                <span className="sm:hidden">Certificación Oficial Chubut</span>
-              </div>
+              {/* Official Chubut Ministry Seal / Certificates Badges */}
+              {certs.length > 0 ? (
+                certs.map((cert, idx) => (
+                  <div
+                    key={idx}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-[#EBF0F7] px-3 py-1 text-xs font-semibold text-[#0F2D59] border border-[#CBD5E1]/60 shadow-2xs max-w-full"
+                    title={cert}
+                  >
+                    <ShieldCheck className="h-3.5 w-3.5 text-[#008CA8] shrink-0" />
+                    <span className="truncate max-w-[260px] sm:max-w-none">{cert}</span>
+                  </div>
+                ))
+              ) : (
+                <div className="inline-flex items-center gap-1.5 rounded-full bg-[#EBF0F7] px-3 py-1 text-xs font-semibold text-[#0F2D59]">
+                  <ShieldCheck className="h-3.5 w-3.5 text-[#008CA8] shrink-0" />
+                  <span>Certificación Oficial Chubut</span>
+                </div>
+              )}
             </div>
 
             {/* Action Buttons & Close */}
@@ -358,18 +378,35 @@ export const CourseModal: React.FC<CourseModalProps> = ({ course, onClose, onOpe
                     )}
                   </div>
 
-                  {/* Certificación al finalizar (culminación del curso) */}
-                  {course.certificacion && (
-                    <div className="rounded-xl border border-[#E2E8F0] bg-[#F7F9FC] p-4 shadow-2xs">
-                      <div className="flex items-center gap-2 text-[#0F2D59] mb-1">
-                        <ShieldCheck className="h-4 w-4 text-[#008CA8]" />
-                        <h3 className="font-heading text-sm font-bold">
-                          Certificación Otorgada al Finalizar
+                  {/* Certificaciones al finalizar (culminación del curso) */}
+                  {certs.length > 0 && (
+                    <div className="rounded-xl border border-[#E2E8F0] bg-[#F7F9FC] p-4 sm:p-5 shadow-2xs space-y-3">
+                      <div className="flex items-center gap-2 text-[#0F2D59]">
+                        <ShieldCheck className="h-4.5 w-4.5 text-[#008CA8] shrink-0" />
+                        <h3 className="font-heading text-sm sm:text-base font-bold">
+                          {certs.length > 1 ? 'Certificaciones Otorgadas al Finalizar' : 'Certificación Otorgada al Finalizar'}
                         </h3>
                       </div>
-                      <p className="text-xs sm:text-sm text-[#44474F] leading-relaxed">
-                        {course.certificacion}
-                      </p>
+                      <div className="grid grid-cols-1 gap-2.5">
+                        {certs.map((cert, idx) => (
+                          <div
+                            key={idx}
+                            className="flex items-start gap-3 rounded-lg border border-[#E2E8F0] bg-white p-3.5 shadow-2xs"
+                          >
+                            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-[#E6F4F7] text-[#008CA8]">
+                              <Award className="h-4 w-4" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <span className="text-xs sm:text-sm font-bold text-[#0F2D59] block">
+                                {cert}
+                              </span>
+                              <span className="text-[11px] text-[#44474F] block mt-0.5">
+                                Acreditación oficial correspondiente al trayecto formativo aprobado.
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>

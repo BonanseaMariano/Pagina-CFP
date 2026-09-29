@@ -14,6 +14,7 @@ export interface Course {
   estado: 'Inscripciones Abiertas' | 'Cupos Limitados' | 'Próximamente' | 'En Cursada';
   ciclo: string;
   certificacion?: string;
+  certificaciones?: string[];
   fotoLaboratorio: string;
   pieFoto: string;
   competencias?: string;

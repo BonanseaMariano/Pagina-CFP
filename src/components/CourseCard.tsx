@@ -21,6 +21,13 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course, onSelect }) => {
     return <Wrench className="h-3.5 w-3.5" />;
   };
 
+  const certs =
+    course.certificaciones && course.certificaciones.length > 0
+      ? course.certificaciones
+      : course.certificacion
+      ? course.certificacion.split(/[;|•\n]/).map((s) => s.trim()).filter(Boolean)
+      : [];
+
   return (
     <div
       onClick={() => onSelect(course)}
@@ -98,10 +105,14 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course, onSelect }) => {
             <MapPin className="h-3.5 w-3.5 text-[#B71322] shrink-0" />
             <span className="truncate">{course.aula} ({course.sede.split(',')[0]})</span>
           </div>
-          {course.certificacion && (
-            <div className="flex items-center gap-2">
-              <Award className="h-3.5 w-3.5 text-[#0F2D59] shrink-0" />
-              <span className="truncate text-[11px]">{course.certificacion}</span>
+          {certs.length > 0 && (
+            <div className="space-y-1.5 pt-0.5">
+              {certs.map((cert, idx) => (
+                <div key={idx} className="flex items-center gap-2 text-slate-700" title={cert}>
+                  <Award className="h-3.5 w-3.5 text-[#008CA8] shrink-0" />
+                  <span className="truncate text-[11px] font-medium text-[#1E293B]">{cert}</span>
+                </div>
+              ))}
             </div>
           )}
         </div>

@@ -32,7 +32,10 @@ export const CourseCatalog: React.FC<CourseCatalogProps> = ({
       const matchCategory = course.categoria.toLowerCase().includes(q);
       const matchDesc = (course.descripcion || '').toLowerCase().includes(q) || (course.perfilEgreso || '').toLowerCase().includes(q);
       const matchAula = course.aula.toLowerCase().includes(q);
-      if (!matchTitle && !matchCategory && !matchDesc && !matchAula) {
+      const matchCert =
+        (course.certificaciones || []).some((c) => c.toLowerCase().includes(q)) ||
+        (course.certificacion || '').toLowerCase().includes(q);
+      if (!matchTitle && !matchCategory && !matchDesc && !matchAula && !matchCert) {
         return false;
       }
     }
