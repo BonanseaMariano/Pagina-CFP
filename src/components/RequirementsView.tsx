@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2, UserCheck } from 'lucide-react';
+import { CheckCircle2, UserCheck, ShieldCheck } from 'lucide-react';
 
 interface RequirementsViewProps {
   onOpenContact: () => void;
@@ -19,6 +19,12 @@ export const RequirementsView: React.FC<RequirementsViewProps> = ({ onOpenContac
           postulación requiere la entrega presencial de la documentación en la Sede
           Central para la validación de vacante.
         </p>
+        <div className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#EBF0F7] px-3.5 py-2 text-xs font-semibold text-[#0F2D59] border border-[#CBD5E1]/70">
+          <ShieldCheck className="h-4 w-4 text-[#008CA8] shrink-0" />
+          <span>
+            Los títulos son emitidos por el Ministerio de Educación y avalados por el Instituto Nacional de Educación Técnica (INET) y el Consejo Federal de Educación.
+          </span>
+        </div>
       </div>
 
       {/* 3 Steps Process */}
@@ -87,10 +93,10 @@ export const RequirementsView: React.FC<RequirementsViewProps> = ({ onOpenContac
               <CheckCircle2 className="h-5 w-5 text-[#008CA8] shrink-0 mt-0.5" />
               <div>
                 <h4 className="font-heading text-xs sm:text-sm font-bold text-[#0F2D59]">
-                  Edad Mínima: 18 Años Cumplidos
+                  Edad: Mayores de 18 Años
                 </h4>
                 <p className="text-xs text-[#44474F] mt-0.5">
-                  Al momento de comenzar el ciclo lectivo. Jóvenes de 16 y 17 años únicamente con autorización tutelar expresa y constancia de escolaridad en curso.
+                  El ingreso es para mayores de 18 años. Solo pueden ingresar menores de 18 que cumplan los 18 años durante la cursada; menores que no cumplan los 18 años durante la cursada no pueden ingresar.
                 </p>
               </div>
             </div>
@@ -123,10 +129,10 @@ export const RequirementsView: React.FC<RequirementsViewProps> = ({ onOpenContac
               <CheckCircle2 className="h-5 w-5 text-[#008CA8] shrink-0 mt-0.5" />
               <div>
                 <h4 className="font-heading text-xs sm:text-sm font-bold text-[#0F2D59]">
-                  Instancias Evaluativas y Prácticas
+                  Acreditación y Títulos Oficiales
                 </h4>
                 <p className="text-xs text-[#44474F] mt-0.5">
-                  Aprobación de las instancias evaluativas y trabajos prácticos con una calificación mínima de 7 (siete) o más para la acreditación y certificación.
+                  Aprobación de instancias evaluativas y prácticas (mínimo 7). Los títulos son emitidos por el Ministerio de Educación y avalados por el Instituto Nacional de Educación Técnica (INET) y el Consejo Federal de Educación.
                 </p>
               </div>
             </div>

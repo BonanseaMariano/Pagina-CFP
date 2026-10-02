@@ -185,7 +185,7 @@ export function convertRowsToCourses(rows: string[][]): Course[] {
     const requisitos = rawRequisitos
       ? rawRequisitos.split(/[;|•\n]/).map((s) => s.trim()).filter(Boolean)
       : [
-          'Mayor de 18 años cumplidos (o 16 con autorización tutelar)',
+          'Mayor de 18 años (solo pueden ingresar menores de 18 que cumplan los 18 años durante la cursada)',
           'Estudios primarios o secundarios según la especialidad técnica',
         ];
 

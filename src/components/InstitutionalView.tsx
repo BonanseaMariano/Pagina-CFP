@@ -68,10 +68,9 @@ export const InstitutionalView: React.FC = () => {
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#EBF0F7] text-[#0F2D59] mb-4">
             <Award className="h-5 w-5" />
           </div>
-          <h3 className="font-heading text-base font-bold text-[#0F2D59]">Certificación Homologada</h3>
+          <h3 className="font-heading text-base font-bold text-[#0F2D59]">Títulos Oficiales Homologados</h3>
           <p className="mt-2 text-xs text-[#44474F] leading-relaxed">
-            Planes de estudio avalados por el Ministerio de Educación del Chubut y registrados a nivel
-            nacional.
+            Los títulos son emitidos por el Ministerio de Educación y avalados por el Instituto Nacional de Educación Técnica (INET) y el Consejo Federal de Educación.
           </p>
         </div>
 
@@ -109,7 +108,11 @@ export const InstitutionalView: React.FC = () => {
           </li>
           <li className="flex items-center gap-2">
             <CheckCircle2 className="h-4 w-4 text-[#008CA8]" />
-            <span><strong>Jurisdicción:</strong> Ministerio de Educación de la Provincia del Chubut</span>
+            <span><strong>Emisión de Títulos:</strong> Ministerio de Educación de la Provincia del Chubut</span>
+          </li>
+          <li className="flex items-center gap-2">
+            <CheckCircle2 className="h-4 w-4 text-[#008CA8]" />
+            <span><strong>Avales Oficiales:</strong> Instituto Nacional de Educación Técnica (INET) y Consejo Federal de Educación</span>
           </li>
           <li className="flex items-center gap-2">
             <CheckCircle2 className="h-4 w-4 text-[#008CA8]" />

@@ -19,6 +19,7 @@ import {
   Building,
   FileText,
   Award,
+  UserCheck,
 } from 'lucide-react';
 
 interface CourseModalProps {
@@ -176,7 +177,7 @@ export const CourseModal: React.FC<CourseModalProps> = ({ course, onClose, onOpe
               ) : (
                 <div className="inline-flex items-center gap-1.5 rounded-full bg-[#EBF0F7] px-3 py-1 text-xs font-semibold text-[#0F2D59]">
                   <ShieldCheck className="h-3.5 w-3.5 text-[#008CA8] shrink-0" />
-                  <span>Certificación Oficial Chubut</span>
+                  <span>Título Oficial • Ministerio de Educación / INET / CFE</span>
                 </div>
               )}
             </div>
@@ -383,9 +384,14 @@ export const CourseModal: React.FC<CourseModalProps> = ({ course, onClose, onOpe
                     <div className="rounded-xl border border-[#E2E8F0] bg-[#F7F9FC] p-4 sm:p-5 shadow-2xs space-y-3">
                       <div className="flex items-center gap-2 text-[#0F2D59]">
                         <ShieldCheck className="h-4.5 w-4.5 text-[#008CA8] shrink-0" />
-                        <h3 className="font-heading text-sm sm:text-base font-bold">
-                          {certs.length > 1 ? 'Certificaciones Otorgadas al Finalizar' : 'Certificación Otorgada al Finalizar'}
-                        </h3>
+                        <div>
+                          <h3 className="font-heading text-sm sm:text-base font-bold">
+                            {certs.length > 1 ? 'Certificaciones Otorgadas al Finalizar' : 'Certificación Otorgada al Finalizar'}
+                          </h3>
+                          <p className="text-[11px] text-[#44474F] mt-0.5">
+                            Los títulos son emitidos por el Ministerio de Educación y avalados por el Instituto Nacional de Educación Técnica (INET) y el Consejo Federal de Educación.
+                          </p>
+                        </div>
                       </div>
                       <div className="grid grid-cols-1 gap-2.5">
                         {certs.map((cert, idx) => (
@@ -401,7 +407,7 @@ export const CourseModal: React.FC<CourseModalProps> = ({ course, onClose, onOpe
                                 {cert}
                               </span>
                               <span className="text-[11px] text-[#44474F] block mt-0.5">
-                                Acreditación oficial correspondiente al trayecto formativo aprobado.
+                                Título oficial emitido por el Ministerio de Educación y avalado por el INET y el Consejo Federal de Educación.
                               </span>
                             </div>
                           </div>
@@ -413,7 +419,18 @@ export const CourseModal: React.FC<CourseModalProps> = ({ course, onClose, onOpe
               )}
 
               {activeTab === 'requisitos' && (
-                <div className="flex flex-col gap-5 animate-in fade-in duration-200">
+                <div className="flex flex-col gap-4 animate-in fade-in duration-200">
+                  {/* Banner de Edad de Ingreso */}
+                  <div className="rounded-xl border border-[#CBD5E1] bg-[#F7F9FC] p-3.5 flex items-start gap-3">
+                    <UserCheck className="h-5 w-5 text-[#008CA8] shrink-0 mt-0.5" />
+                    <div>
+                      <span className="text-xs font-bold text-[#0F2D59] block">Condición de Edad para el Ingreso:</span>
+                      <p className="text-xs text-[#44474F] mt-0.5">
+                        El ingreso es para mayores de 18 años. Solo pueden ingresar menores de 18 que cumplan los 18 años durante la cursada; menores que no cumplan los 18 años durante la cursada no pueden ingresar.
+                      </p>
+                    </div>
+                  </div>
+
                   <div className="flex flex-col gap-2.5">
                     {course.requisitos && course.requisitos.length > 0 ? (
                       course.requisitos.map((req, idx) => (
@@ -429,7 +446,7 @@ export const CourseModal: React.FC<CourseModalProps> = ({ course, onClose, onOpe
                       ))
                     ) : (
                       <div className="rounded-xl border border-dashed border-[#CBD5E1] bg-[#F7F9FC] p-5 text-center text-[#44474F] text-xs sm:text-sm">
-                        Sin requisitos previos específicos indicados para este curso.
+                        Sin requisitos correlativos técnicos previos indicados para este curso.
                       </div>
                     )}
                   </div>

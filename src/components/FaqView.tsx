@@ -10,8 +10,12 @@ export const FaqView: React.FC = () => {
       a: 'No, todos nuestros cursos y talleres son 100% públicos y gratuitos. No se cobra matrícula ni cuotas mensuales. En algunos talleres específicos, los estudiantes únicamente aportan los materiales descartables o consumibles que usan para sus propias prácticas.',
     },
     {
-      q: '¿El certificado que entregan es oficial?',
-      a: 'Sí. Al completar y aprobar el curso recibís una certificación oficial emitida por el Centro de Formación Profesional N° 651 y avalada por el Ministerio de Educación del Chubut.',
+      q: '¿Los títulos y certificados que otorgan son oficiales?',
+      a: 'Sí. Los títulos son emitidos por el Ministerio de Educación y avalados por el Instituto Nacional de Educación Técnica (INET) y el Consejo Federal de Educación, contando con validez y reconocimiento oficial a nivel nacional.',
+    },
+    {
+      q: '¿Cuál es el requisito de edad para ingresar?',
+      a: 'El ingreso es para mayores de 18 años. Solo pueden ingresar menores de 18 que cumplan los 18 años durante la cursada; menores que no cumplan los 18 años durante la cursada no pueden ingresar.',
     },
     {
       q: '¿Puedo anotarme si no terminé el secundario?',

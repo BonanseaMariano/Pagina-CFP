@@ -32,9 +32,9 @@ export const Footer: React.FC<FooterProps> = ({ onSelectTab, onOpenContact }) =>
               Formamos profesionales capacitados en oficios técnicos y de servicios para impulsar el
               desarrollo productivo sustentable de Puerto Madryn y la región patagónica.
             </p>
-            <div className="flex items-center gap-2 text-xs text-[#ADC7FC]">
-              <ShieldCheck className="h-4 w-4 text-[#6ED4F2]" />
-              <span>Certificación Oficial Ministerio de Educación</span>
+            <div className="flex items-start gap-2 text-xs text-[#ADC7FC]">
+              <ShieldCheck className="h-4 w-4 text-[#6ED4F2] shrink-0 mt-0.5" />
+              <span>Títulos emitidos por el Ministerio de Educación y avalados por el INET y el Consejo Federal de Educación</span>
             </div>
 
             {/* Redes Sociales */}
