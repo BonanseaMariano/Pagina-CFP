@@ -5,13 +5,15 @@ export interface CourseModule {
   horas: number;
 }
 
+export type CourseStatus = 'Próximamente' | 'Inscripciones Abiertas' | 'Cursando' | 'Finalizado';
+
 export interface Course {
   id: string;
   codigo?: string;
   titulo: string;
   categoria: string;
   gratuito: string;
-  estado: 'Inscripciones Abiertas' | 'Cupos Limitados' | 'Próximamente' | 'En Cursada';
+  estado: CourseStatus;
   ciclo: string;
   certificacion?: string;
   certificaciones?: string[];

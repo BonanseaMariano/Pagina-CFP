@@ -219,7 +219,8 @@ export const SheetConfigModal: React.FC<SheetConfigModalProps> = ({
               </p>
               <div className="mt-2 pt-2 border-t border-slate-200 text-[11px] text-slate-500 space-y-1">
                 <span className="font-semibold text-slate-700 block">Columnas identificadas:</span>
-                <p>• <span className="font-mono text-slate-700 font-semibold">requisitos</span>: condiciones previas, edad mínima o escolaridad requerida.</p>
+                <p>• <span className="font-mono text-slate-700 font-semibold">estado</span>: <span className="text-emerald-700 font-medium">Inscripciones Abiertas</span>, <span className="text-amber-700 font-medium">Próximamente</span>, <span className="text-sky-700 font-medium">Cursando</span> o <span className="text-slate-600 font-medium">Finalizado</span>.</p>
+                <p>• <span className="font-mono text-slate-700 font-semibold">requisitos</span>: condiciones previas, edad o escolaridad requerida.</p>
                 <p>• <span className="font-mono text-slate-700 font-semibold">documentacion</span>: constancias y papeles físicos a presentar en sede.</p>
               </div>
             </div>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Course } from '../types';
+import { CourseStatusBadge } from './CourseStatusBadge';
 import { CFP_FACADE_IMAGE } from '../data/cfpFacadeImage';
+import { getCategoryIcon } from '../utils/categoryIcons';
 import {
   X,
-  Laptop,
   CheckCircle2,
   ShieldCheck,
   Calendar,
@@ -136,31 +137,16 @@ export const CourseModal: React.FC<CourseModalProps> = ({ course, onClose, onOpe
             <div className="flex flex-wrap items-center gap-2">
               {/* Category Badge */}
               <div className="inline-flex items-center gap-1.5 rounded-full border border-[#008CA8]/30 bg-[#E6F4F7] px-3 py-1 text-xs font-semibold text-[#008CA8]">
-                <Laptop className="h-3.5 w-3.5" />
+                {getCategoryIcon(course.categoria)}
                 <span>{course.categoria}</span>
               </div>
 
               {/* Enrollment Status Badge */}
-              <div
-                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${
-                  course.estado === 'Inscripciones Abiertas'
-                    ? 'bg-[#DEF7EC] text-[#03543F]'
-                    : course.estado === 'Cupos Limitados'
-                    ? 'bg-[#FDF2E9] text-[#C8232C]'
-                    : 'bg-amber-100 text-amber-800'
-                }`}
-              >
-                <span
-                  className={`h-2 w-2 rounded-full ${
-                    course.estado === 'Inscripciones Abiertas'
-                      ? 'bg-emerald-500 animate-pulse'
-                      : 'bg-[#C8232C]'
-                  }`}
-                />
-                <span>
-                  {course.estado} • {course.ciclo}
-                </span>
-              </div>
+              <CourseStatusBadge
+                status={course.estado}
+                ciclo={course.ciclo}
+                variant="modal"
+              />
 
               {/* Official Chubut Ministry Seal / Certificates Badges */}
               {certs.length > 0 ? (

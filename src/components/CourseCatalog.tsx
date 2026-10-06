@@ -35,7 +35,8 @@ export const CourseCatalog: React.FC<CourseCatalogProps> = ({
       const matchCert =
         (course.certificaciones || []).some((c) => c.toLowerCase().includes(q)) ||
         (course.certificacion || '').toLowerCase().includes(q);
-      if (!matchTitle && !matchCategory && !matchDesc && !matchAula && !matchCert) {
+      const matchEstado = (course.estado || '').toLowerCase().includes(q);
+      if (!matchTitle && !matchCategory && !matchDesc && !matchAula && !matchCert && !matchEstado) {
         return false;
       }
     }

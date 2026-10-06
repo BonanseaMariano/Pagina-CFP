@@ -1,5 +1,6 @@
 import React from 'react';
 import { Search } from 'lucide-react';
+import { getCategoryIcon } from '../utils/categoryIcons';
 
 interface HeroBannerProps {
   categories: string[];
@@ -97,17 +98,19 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({
           <span className="text-xs font-bold text-[#44474F] mr-1">Áreas:</span>
           {categories.map((cat) => {
             const isSelected = selectedCategory === cat;
+            const categoryIcon = cat !== 'Todos' ? getCategoryIcon(cat, 'h-3.5 w-3.5 shrink-0') : null;
             return (
               <button
                 key={cat}
                 onClick={() => onSelectCategory(cat)}
-                className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all duration-150 ${
+                className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all duration-150 ${
                   isSelected
                     ? 'bg-[#008CA8] text-white shadow-xs'
                     : 'bg-white text-[#44474F] border border-[#CBD5E1] hover:border-[#008CA8] hover:text-[#008CA8]'
                 }`}
               >
-                {cat}
+                {categoryIcon}
+                <span>{cat}</span>
               </button>
             );
           })}

@@ -161,14 +161,17 @@ export function convertRowsToCourses(rows: string[][]): Course[] {
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)/g, '');
 
-    const rawEstado = getCol(row, 'estado', 'status', 'inscripciones').toLowerCase();
+    const rawEstado = getCol(row, 'estado', 'status', 'inscripciones').trim();
+    const cleanEstado = rawEstado.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     let estado: Course['estado'] = 'Inscripciones Abiertas';
-    if (rawEstado.includes('cupo') || rawEstado.includes('limitad')) {
-      estado = 'Cupos Limitados';
-    } else if (rawEstado.includes('proximamente') || rawEstado.includes('espera') || rawEstado.includes('pronto')) {
+    if (cleanEstado.includes('proxim') || cleanEstado.includes('pronto') || cleanEstado.includes('espera')) {
       estado = 'Próximamente';
-    } else if (rawEstado.includes('cursad') || rawEstado.includes('cerrad') || rawEstado.includes('finaliz')) {
-      estado = 'En Cursada';
+    } else if (cleanEstado.includes('finaliz') || cleanEstado.includes('terminad') || cleanEstado.includes('concluid') || cleanEstado.includes('cerrad')) {
+      estado = 'Finalizado';
+    } else if (cleanEstado.includes('cursan') || cleanEstado.includes('cursad')) {
+      estado = 'Cursando';
+    } else {
+      estado = 'Inscripciones Abiertas';
     }
 
     const rawTurno = getCol(row, 'turno', 'horario_turno').toLowerCase();
