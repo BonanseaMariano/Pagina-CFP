@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <!-- Outer dark circle background and border -->
+  <circle cx="100" cy="100" r="95" fill="#FFFFFF" stroke="#1E293B" stroke-width="9" />
+  
+  <!-- Red inner ring -->
+  <circle cx="100" cy="100" r="82" fill="none" stroke="#B71322" stroke-width="9" />
+  
+  <!-- Center white background -->
+  <circle cx="100" cy="100" r="74" fill="#FFFFFF" />
+  
+  <!-- Central Acronym "CFP" -->
+  <text
+    x="100"
+    y="93"
+    text-anchor="middle"
+    fill="#111827"
+    font-family="-apple-system, BlinkMacSystemFont, 'Montserrat', 'Inter', 'Segoe UI', Arial, sans-serif"
+    font-weight="900"
+    font-size="49px"
+    letter-spacing="-1.5px"
+  >CFP</text>
+  
+  <!-- Number "651" -->
+  <text
+    x="100"
+    y="144"
+    text-anchor="middle"
+    fill="#111827"
+    font-family="-apple-system, BlinkMacSystemFont, 'Montserrat', 'Inter', 'Segoe UI', Arial, sans-serif"
+    font-weight="900"
+    font-size="49px"
+    letter-spacing="-1px"
+  >651</text>
+</svg>
