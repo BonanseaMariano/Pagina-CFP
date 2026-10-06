@@ -39,24 +39,24 @@ export const CourseCard: React.FC<CourseCardProps> = ({ course, onSelect }) => {
           }}
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/25" />
 
         {/* Category Pill Tag */}
-        <div className="absolute top-3 left-3 z-10">
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur-xs px-3 py-1 text-xs font-semibold text-[#0F2D59] shadow-xs">
+        <div className="absolute top-3 left-3 z-10 max-w-[calc(100%-1.5rem)] xl:max-w-[calc(100%-11.5rem)]">
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur-xs px-3 py-1 text-xs font-semibold text-[#0F2D59] shadow-xs max-w-full">
             {categoryIcon}
-            <span>{course.categoria}</span>
+            <span className="truncate">{course.categoria}</span>
           </div>
         </div>
 
-        {/* Status Badge */}
-        <div className="absolute top-3 right-3 z-10">
+        {/* Status Badge: Bottom-right on mobile/tablet/laptop, top-right on wide desktop (xl+) */}
+        <div className="absolute bottom-3 right-3 z-10 xl:bottom-auto xl:top-3 xl:right-3">
           <CourseStatusBadge status={course.estado} variant="card" />
         </div>
 
         {/* Bottom image overlay with Shift / Turno */}
-        <div className="absolute bottom-3 left-3 flex items-center text-white text-xs font-medium">
-          <span className="rounded-md bg-black/60 px-2 py-0.5 backdrop-blur-xs">
+        <div className="absolute bottom-3 left-3 z-10 flex items-center text-white text-xs font-medium">
+          <span className="rounded-md bg-black/70 px-2 py-0.5 backdrop-blur-xs shadow-2xs">
             Turno {course.turno}
           </span>
         </div>
